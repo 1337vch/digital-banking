@@ -1,10 +1,7 @@
 package com.enset.ebank.entities;
 
 import com.enset.ebank.enums.OperationType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +21,8 @@ public class AccountOperation {
 private Long id;
 private Date operationDate;
 private double amount;
+
+@Enumerated(EnumType.STRING)
 private OperationType type;
 
 @ManyToOne

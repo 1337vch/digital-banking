@@ -20,7 +20,7 @@ public class Customer {
     private Long id;
     private String name;
     private String email;
-    @OneToMany
+    @OneToMany(mappedBy = "customer")
     private List<BankAccount> bankAccounts;
 
 }

@@ -13,6 +13,9 @@ import java.util.List;
 @AllArgsConstructor @NoArgsConstructor
 @Data
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", length = 4,discriminatorType = DiscriminatorType.STRING)
+
 public class BankAccount {
 
 
@@ -26,6 +29,8 @@ public class BankAccount {
 
 
 
+
+    @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
 
