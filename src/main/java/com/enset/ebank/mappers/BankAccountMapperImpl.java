@@ -1,13 +1,7 @@
 package com.enset.ebank.mappers;
 
-import com.enset.ebank.DTO.BankAccountDTO;
-import com.enset.ebank.DTO.CurrentAccountDTO;
-import com.enset.ebank.DTO.CustomerDTO;
-import com.enset.ebank.DTO.SavingAccountDTO;
-import com.enset.ebank.entities.BankAccount;
-import com.enset.ebank.entities.CurrentAccount;
-import com.enset.ebank.entities.Customer;
-import com.enset.ebank.entities.SavingAccount;
+import com.enset.ebank.DTO.*;
+import com.enset.ebank.entities.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +27,7 @@ public class BankAccountMapperImpl implements  BankAccountMapper{
         SavingAccountDTO savingAccountDTO = new SavingAccountDTO();
         BeanUtils.copyProperties(bankAccount, savingAccountDTO);
         savingAccountDTO.setCustomer(customerToCustomerDTO(bankAccount.getCustomer()));
+        savingAccountDTO.setType(bankAccount.getClass().getSimpleName());
         return savingAccountDTO;
     }
 
@@ -51,7 +46,7 @@ public class BankAccountMapperImpl implements  BankAccountMapper{
         CurrentAccountDTO savingAccountDTO = new CurrentAccountDTO();
         BeanUtils.copyProperties(bankAccount, savingAccountDTO);
         savingAccountDTO.setCustomer(customerToCustomerDTO(bankAccount.getCustomer()));
-
+        savingAccountDTO.setType(bankAccount.getClass().getSimpleName());
         return savingAccountDTO;
 
     }
@@ -78,5 +73,15 @@ public class BankAccountMapperImpl implements  BankAccountMapper{
         BankAccount bankAccount= new BankAccount();
         BeanUtils.copyProperties(bankAccountDTO,bankAccount);
         return bankAccount;
+    }
+
+    @Override
+    public AccountOperationDTO accountOperationToAccountOperationDTO(AccountOperation accountOperation) {
+
+        AccountOperationDTO accountOperationDTO = new AccountOperationDTO();
+        BeanUtils.copyProperties(accountOperation,accountOperationDTO);
+        return accountOperationDTO;
+
+
     }
 }

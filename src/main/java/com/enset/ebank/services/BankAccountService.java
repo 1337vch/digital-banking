@@ -1,9 +1,6 @@
 package com.enset.ebank.services;
 
-import com.enset.ebank.DTO.BankAccountDTO;
-import com.enset.ebank.DTO.CurrentAccountDTO;
-import com.enset.ebank.DTO.CustomerDTO;
-import com.enset.ebank.DTO.SavingAccountDTO;
+import com.enset.ebank.DTO.*;
 import com.enset.ebank.entities.*;
 import com.enset.ebank.enums.AccountStatus;
 import com.enset.ebank.enums.OperationType;
@@ -15,6 +12,8 @@ import com.enset.ebank.repositories.AccountOperationRepository;
 import com.enset.ebank.repositories.BankAccountRepository;
 import com.enset.ebank.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -191,6 +190,43 @@ public class BankAccountService implements  IBankAccountService{
        customerRepository.deleteById(customerId);
     }
 
+
+    @Override
+    public  List<AccountOperationDTO> accountHistory(String accountId){
+
+        List<AccountOperation> accountOperations = accountOperationRepository.findByBankAccount_Id(accountId);
+
+        return accountOperations.stream()
+                .map(accountOperation -> mapper.accountOperationToAccountOperationDTO(accountOperation))
+                .collect(Collectors.toList());
+
+
+    }
+
+    @Override
+    public AccountOperationPageDTO accountHistoryPage(String accountId, Pageable pageable) throws BankAccountNotExist {
+        BankAccount account = getBankaccountNotExist(accountId);
+
+        Page<AccountOperation> accountOperations = accountOperationRepository.findByBankAccount(account,pageable);
+
+        List<AccountOperationDTO> accountOperationDTOS =  accountOperations.getContent().stream()
+                .map(accountOperation -> mapper.accountOperationToAccountOperationDTO(accountOperation))
+                .collect(Collectors.toList());
+
+
+        AccountOperationPageDTO accountOperationPageDTO = AccountOperationPageDTO.builder()
+                .operations(accountOperationDTOS)
+                .accountBalance(account.getBalance())
+                .currentPage(accountOperations.getNumber())
+                .totalPages(accountOperations.getTotalPages())
+                .size(accountOperations.getSize())
+                .totalElements(accountOperations.getTotalElements())
+                .build();
+
+
+        return  accountOperationPageDTO;
+
+    }
 
     private BankAccount getBankaccountNotExist(String accountId) throws BankAccountNotExist {
         return bankAccountRepository.findById(accountId)

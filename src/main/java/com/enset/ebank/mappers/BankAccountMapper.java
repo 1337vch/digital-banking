@@ -1,14 +1,8 @@
 package com.enset.ebank.mappers;
 
 
-import com.enset.ebank.DTO.BankAccountDTO;
-import com.enset.ebank.DTO.CurrentAccountDTO;
-import com.enset.ebank.DTO.CustomerDTO;
-import com.enset.ebank.DTO.SavingAccountDTO;
-import com.enset.ebank.entities.BankAccount;
-import com.enset.ebank.entities.CurrentAccount;
-import com.enset.ebank.entities.Customer;
-import com.enset.ebank.entities.SavingAccount;
+import com.enset.ebank.DTO.*;
+import com.enset.ebank.entities.*;
 
 
 public interface  BankAccountMapper {
@@ -25,4 +19,6 @@ public interface  BankAccountMapper {
     BankAccountDTO bankAccountToBankAccountDTO(BankAccount bankAccount);
 
     BankAccount bankAccountDTOToBankAccount(BankAccountDTO bankAccountDTO);
+
+    AccountOperationDTO accountOperationToAccountOperationDTO(AccountOperation accountOperation);
 }

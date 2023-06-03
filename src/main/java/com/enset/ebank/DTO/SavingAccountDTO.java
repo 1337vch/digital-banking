@@ -7,5 +7,5 @@ import java.util.Date;
 @Data
 public class SavingAccountDTO extends  BankAccountDTO{
 
-    double overDraft;
+    double interestRate;
 }
