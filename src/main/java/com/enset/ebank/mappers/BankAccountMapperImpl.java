@@ -33,7 +33,6 @@ public class BankAccountMapperImpl implements  BankAccountMapper{
         SavingAccountDTO savingAccountDTO = new SavingAccountDTO();
         BeanUtils.copyProperties(bankAccount, savingAccountDTO);
         savingAccountDTO.setCustomer(customerToCustomerDTO(bankAccount.getCustomer()));
-
         return savingAccountDTO;
     }
 

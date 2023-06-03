@@ -13,6 +13,8 @@ public class BankAccountDTO {
     String id;
     double balance;
     Date createdAt;
+
+    String type;
     AccountStatus status;
     CustomerDTO customer;
 }
