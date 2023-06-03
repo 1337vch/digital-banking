@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -13,7 +14,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-public class AccountOperation {
+@ToString
+public class AccountOperation  implements  Cloneable{
 
 
     @Id
@@ -22,10 +24,15 @@ private Long id;
 private Date operationDate;
 private double amount;
 
-@Enumerated(EnumType.STRING)
-private OperationType type;
+    private String description;
+    @Enumerated(EnumType.STRING)
+    private OperationType type;
 
-@ManyToOne
-private BankAccount bankAccount;
+    @ManyToOne
+    private BankAccount bankAccount;
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 }

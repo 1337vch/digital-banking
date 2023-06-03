@@ -15,33 +15,23 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", length = 4,discriminatorType = DiscriminatorType.STRING)
-
 public class BankAccount {
 
 
     @Id
-
     private String id;
 
     private double balance;
 
     private Date createdAt;
 
-
-
-
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
-
 
     @ManyToOne
     private Customer customer;
 
-
-
-    @OneToMany(mappedBy = "bankAccount")
+    @OneToMany(mappedBy = "bankAccount",fetch = FetchType.EAGER)
     private List<AccountOperation> accountOperations;
-
-
 
 }
