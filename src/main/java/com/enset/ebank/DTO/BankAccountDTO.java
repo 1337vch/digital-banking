@@ -10,11 +10,11 @@ import java.util.Date;
 @Data
 public class BankAccountDTO {
 
-    String id;
-    double balance;
-    Date createdAt;
+    private String id;
+    private  double balance;
+    private  Date createdAt;
 
-    String type;
-    AccountStatus status;
-    CustomerDTO customer;
+    private String type;
+    private AccountStatus status;
+    private  CustomerDTO customer;
 }

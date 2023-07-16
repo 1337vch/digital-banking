@@ -12,6 +12,7 @@ import com.enset.ebank.repositories.AccountOperationRepository;
 import com.enset.ebank.repositories.BankAccountRepository;
 import com.enset.ebank.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -135,7 +136,6 @@ public class BankAccountService implements  IBankAccountService{
     @Override
     public void debit(String accountId, double amount, String description) throws BankAccountNotExist,  BalanceNotSufficientException {
 
-
         BankAccount bankAccount = getBankaccountNotExist(accountId);
 
         if(bankAccount.getBalance()<amount)
@@ -161,7 +161,6 @@ public class BankAccountService implements  IBankAccountService{
 
         BankAccount bankAccount = getBankaccountNotExist(accountId);
 
-
         AccountOperation accountOperation = new AccountOperation();
         accountOperation.setBankAccount(bankAccount);
         accountOperation.setOperationDate(new Date());
@@ -177,7 +176,6 @@ public class BankAccountService implements  IBankAccountService{
 
     @Override
     public void transfer(String accountIdSource, String accountIdDestination, double amount, String motif) throws BankAccountNotExist, BalanceNotSufficientException {
-
 
         debit(accountIdSource,amount, "Transfer to " + accountIdDestination + " -- Comment : " + motif );
         credit(accountIdDestination,amount, "Transfer from " + accountIdSource + " -- Comment : " + motif );
@@ -229,6 +227,7 @@ public class BankAccountService implements  IBankAccountService{
     }
 
     private BankAccount getBankaccountNotExist(String accountId) throws BankAccountNotExist {
+
         return bankAccountRepository.findById(accountId)
                 .orElseThrow(() -> new BankAccountNotExist("BANKACCOUNT_NOT_EXIST"));
     }
